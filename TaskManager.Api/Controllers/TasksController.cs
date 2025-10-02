@@ -10,10 +10,12 @@ namespace TaskManager.Api.Controllers
     public class TasksController : ControllerBase
     {
         public IConfigurationInterface _configurationInterface { get; set; }
+        public ICacheRepository _cacheRepository { get; set; }
 
-        public TasksController(IConfigurationInterface configurationInterface)
+        public TasksController(IConfigurationInterface configurationInterface, ICacheRepository cacheRepository)
         {
             _configurationInterface = configurationInterface;
+            _cacheRepository = cacheRepository;
         }
 
         // GET: api/<TasksController>
@@ -34,6 +36,7 @@ namespace TaskManager.Api.Controllers
         [HttpPost]
         public void Post([FromBody] string value)
         {
+            _cacheRepository.Set("", "");
         }
 
         // PUT api/<TasksController>/5

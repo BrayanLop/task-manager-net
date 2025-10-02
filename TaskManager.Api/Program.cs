@@ -1,19 +1,11 @@
-using TaskManager.Infrastructure.Interfaces;
-using TaskManager.Infrastructure.Repositories;
 using TaskManager.Api.Configurations;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddSwaggerConfiguration();
-if (Environment.GetEnvironmentVariable("CLIENT_ID") == "")
-{
-
-}
-
-//builder.Services.AddScoped<IConfigurationInterface, EnviromentRepository>();
-builder.Services.AddScoped<IConfigurationInterface, SettingsRepository>();
-builder.Services.AddScoped<ICacheRepository, CacheRepository>();
+builder.Services.AddServices();
+builder.Services.AddMemoryCache();
 builder.Services.AddControllers();
 
 var app = builder.Build();
